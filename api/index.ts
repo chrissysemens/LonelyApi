@@ -12,9 +12,11 @@ const chat = new ChatOpenAI({
 
 app.get("/test", async (req, res) => {
     try {
-        await chat.invoke([new HumanMessage({ content: "Generate a random thought provoking question" })]).then((resp: any) => {
-            res.send(resp);
-        })
+        await chat.invoke([new HumanMessage({ content: "Generate a random thought provoking question" })]).then(async (resp: any) => {
+            await chat.invoke([new HumanMessage({ content: resp.content })]).then((resp: any) => {
+                res.send(resp);
+            })
+        });
     } catch(e) {
         res.send(e);
     }
