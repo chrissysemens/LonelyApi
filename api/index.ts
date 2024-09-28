@@ -16,7 +16,7 @@ app.get("/test", async (req, res) => {
             res.send(resp);
         })
     } catch(e) {
-        console.log(e);
+        res.send(e);
     }
 });
 
