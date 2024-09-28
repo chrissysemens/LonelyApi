@@ -1,7 +1,21 @@
+import { ChatOpenAI } from "@langchain/openai";
+import { HumanMessage } from "@langchain/core/messages";
+
 const express = require("express"); const app = express();
 require('dotenv').config();
 
-app.get("/test", (req, res) => res.send(process.env.OPENAI_API_KEY));
+const chat = new ChatOpenAI({
+    temperature: 0.9,
+    openAIApiKey: process.env.OPENAI_API_KEY,
+    model:'gpt-4o-mini'
+  });
+
+app.get("/test", async (req, res) => {
+    await chat.invoke([new HumanMessage({ content: "What's my name?" })]).then((resp: any) => {
+        console.log('resp:', resp);
+    })
+    res.send(process.env.OPENAI_API_KEY);
+});
 
 app.listen(3000, () => console.log("Server ready on port 3000."));
 
