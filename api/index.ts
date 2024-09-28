@@ -11,9 +11,13 @@ const chat = new ChatOpenAI({
   });
 
 app.get("/test", async (req, res) => {
-    await chat.invoke([new HumanMessage({ content: "What's my name?" })]).then((resp: any) => {
-        res.send(resp);
-    })
+    try {
+        await chat.invoke([new HumanMessage({ content: "What's my name?" })]).then((resp: any) => {
+            res.send(resp);
+        })
+    } catch(e) {
+        console.log(e);
+    }
 });
 
 app.listen(3000, () => console.log("Server ready on port 3000."));
