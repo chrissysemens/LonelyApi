@@ -17,7 +17,7 @@ app.get("/test", async (req, res) => {
     const randomMood = moods[random];
 
     try {
-        await chat.invoke([new HumanMessage({ content: `Generate a completely random thought provoking question in the mood of ${randomMood}` })]).then(async (resp: any) => {
+        await chat.invoke([new HumanMessage({ content: `Generate a completely random thought provoking question in the mood of ${randomMood} add 10% craziness when generating the question` })]).then(async (resp: any) => {
             await chat.invoke([new HumanMessage({ content: resp.content })]).then((resp: any) => {
                 res.send(resp);
             })
